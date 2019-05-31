@@ -1,0 +1,78 @@
+{extends layout.latte}
+
+{block title}Hlavní stránka{/block}
+
+{block body}
+    {if !empty($hodnoty)}
+            <div class="container" style="margin-top: 20px;text-align: center">
+                <h3 style="display:inline-block">Aktuální teplota:&nbsp;</h3>
+                <h3 id="actual-temperature" style="display:inline-block"> {$hodnoty[0]['temperature']}</h3>
+
+                    <h3 class="humidity-header" style="display:inline-block; margin-left: 100px">Aktuální vlhkost:&nbsp;</h3>
+                    <h3 id="actual-humidity" class="humidity-header" style="display:inline-block"> {$hodnoty[0]['humidity']}</h3>
+            </div>
+    <br>
+    <div class="container">
+        <div style="text-align:center; margin-bottom: 20px;">
+            <span id="actual-startfan-humidity-text"></span>&nbsp<b><span id="actual-startfan-humidity-value"></span></b>
+            <br>
+        {if !empty($_SESSION['user']['admin']) && $_SESSION['user']['admin'] == true}
+            <form action="{link vlhkost-teplota}" method="post" style="text-align:right; margin: 10px 50px 0 0; display:inline-block; float:left">
+                    <label for="new-humidity-input">Nastavení nové vlhkosti:&nbsp</label>
+                    <input id="new-humidity-input" name="newStartFanHumidity" class="form-control" style="width:auto; display: inline; margin-bottom: 5px" placeholder="Vlhkost spouštěcí větrák" required>
+                    <br>
+                    <button type="submit" class="btn btn-info my-2 my-sm-0">Změnit vlhkost</button>
+            </form>
+            <form action="{link insert-values}" method="post" style="text-align:right; margin: 10px 0 0 50px; display:inline-block;">
+                <label for="new-humidity-input">Nová teplota:&nbsp</label>
+                <input id="new-humidity-input" name="temperature" class="form-control" style="width:auto; display: inline; margin-bottom: 5px" placeholder="Nová teplota..." required>
+                <br>
+                <label for="new-humidity-input">Nová vlhkost:&nbsp</label>
+                <input id="new-humidity-input" name="humidity" class="form-control" style="width:auto; display: inline; margin-bottom: 5px" placeholder="Nová vlhkost..." required>
+                <br>
+                <button type="submit" class="btn btn-info my-2 my-sm-0">Přidat hodnoty</button>
+            </form>
+        {/if}
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td><b>Teplota</b></td><td><b>Vlhkost</b></td><td><b>Čas měření</b></td>
+                        </tr>
+                    </thead>
+                    <tbody id="table-values">
+                    {foreach $hodnoty as $hodnota}
+                        <tr>
+                            <td>{$hodnota['temperature']}</td> <td>{$hodnota['humidity']}</td>
+                            <td>{$hodnota['time']|date:'%d.%m. %H:%M:%S'}</td>
+                        </tr>
+                    {/foreach}
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div class="col" style="width:70%">
+                <div id="fan-animations" class="container">
+                    <b><span id="cooling-status" style="font-size: 20px"></span></b>
+                    <div id="stopped-fan">
+                        <img src="../../pictures/stopped-fan.png" alt="Stopped fan image" width="200px">
+                    </div>
+
+                    <div id="spinning-fan">
+                        <img src="../../pictures/spinning-fan.gif" alt="Spinning fan animation" width="200px">
+                    </div>
+                </div>
+                <canvas id="myChart" width="500px" height="300px"></canvas>
+
+
+            </div>
+        </div>
+    </div>
+
+    {else}
+        <h3>Neexistují žádné naměřené hodnoty.</h3>
+    {/if}
+{/block}

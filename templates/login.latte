@@ -1,0 +1,22 @@
+{extends layout.latte}
+
+{block title}Login page{/block}
+
+{block body}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <h1>login</h1>
+                <form action="{link login}" method="post">
+                    <label>Login</label>
+                    <input type="text" name="login" class="form-control" required><br>
+                    <label>Password</label>
+                    <input type="password" name="pass" class="form-control" required><br>
+                    <button type="submit" class="btn btn-primary">
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}

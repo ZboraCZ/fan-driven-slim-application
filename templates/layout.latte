@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{$basePath}/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$basePath}/css/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="{$basePath}/css/custom.css">
+    <script type="text/javascript" src="{$basePath}/js/jquery.js"></script>
+    <script type="text/javascript" src="{$basePath}/css/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="../../js/displayingEvents.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {ifset meta}{include meta}{/ifset}
+</head>
+<body>
+    {if !empty($_SESSION['user'])}
+    <form id="logout-button-form" class="form-inline my-2 my-lg-0" action="{link logout}" method="post" style="float:right">
+        <button class="btn btn-danger my-2 my-sm-0" type="submit">Logout {$_SESSION['user']['login']}</button>
+    </form>
+    {/if}
+{include body}
+</body>
+</html>

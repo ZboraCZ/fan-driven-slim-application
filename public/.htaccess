@@ -1,0 +1,6 @@
+  RewriteEngine On
+
+  RewriteBase /~xzboril7/avtk_projekt/public
+  
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^ index.php [QSA,L]
